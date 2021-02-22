@@ -7,6 +7,12 @@ pipeline{
 			}
 		}
 		
+		stage ('MUnit Testing Application'){
+			steps{
+				bat 'mvn test'
+			}
+		}
+		
 		stage ('Deploy Application to Mulesoft CloudHub'){
 			steps{
 				bat 'mvn package deploy -DmuleDeploy'

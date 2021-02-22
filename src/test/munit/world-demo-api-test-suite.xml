@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="world-demo-api-test-suite.xml" />
+	<munit:test name="world-demo-api-test-suite-AllTestCases" doc:id="ebc41288-2360-432f-8f1e-73cba2a11256" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="b6541a1f-0b33-462c-aa99-0b9330c8b851" name="world-demo-api-test-suite-SetEvent"/>
+			<flow-ref doc:name="Flow-ref to world-demo-apiFlow" doc:id="82ce8f2a-6206-4bbf-98ce-13f71b0e8f33" name="world-demo-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="abf00ca4-e69c-4bd9-8c06-0e367089b2a1" message="Payload is null" expression="#[payload]" is="#[MunitTools::allOf([MunitTools::notNullValue(),MunitTools::withMediaType('application/json'),MunitTools::withEncoding('UTF-8')])]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="world-demo-api-test-suite-CheckDSTResponseValue" doc:id="e7fd3819-4f3c-476a-8650-e81ed6aed7f8" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="a1c90f6e-d9fb-4674-96dd-f8f6f7efe8f7" name="world-demo-api-test-suite-SetEvent"/>
+			<flow-ref doc:name="Flow-ref to world-demo-apiFlow" doc:id="52ba0b58-cb3a-466c-b8fc-4090d4525761" name="world-demo-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="726f33f9-02c8-4b7c-871c-feedd6328535" expression="#[payload.dst]" is="#[MunitTools::equalTo(false)]" message="DST Value is incorrect"/>
+		</munit:validation>
+	</munit:test>
+	<flow name="world-demo-api-test-suite-SetEvent" doc:id="0081e5d7-f981-4294-9087-81fd7f58eee2" >
+		<munit:set-event doc:name="Set Event" doc:id="a2f0d8b0-a497-4b66-b39b-5687d1b7a0b3">
+				<munit:attributes value="#[{uriParams:{region:'Asia',city:'Kolkata'}}]" />
+			</munit:set-event>
+	</flow>
+
+
+</mule>
