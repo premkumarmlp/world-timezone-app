@@ -36,6 +36,7 @@
 				<environment>Sandbox</environment>
 				<workers>1</workers>
 				<workerType>Micro</workerType>
+				<objectStoreV2>true</objectStoreV2>
 				<applicationName>worldTimezoneService</applicationName>
 				<password>Thulir0409</password>
 				<muleVersion>4.3.0</muleVersion>
